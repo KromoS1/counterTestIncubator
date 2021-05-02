@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import s from "./Counter.module.css";
+import style from "./Counter.module.css";
 
 export default function Counter() {
     const [numberClick, setNumberClick] = useState<number>(0);
@@ -16,19 +16,19 @@ export default function Counter() {
     }
 
     return (
-        <div className={s.counter}>
-            <div className={s.scoareboard}>
-                <div className={numberClick < 5 ? s.number : s.number_error}>
+        <div className={style.counter}>
+            <div className={style.scoreboard}>
+                <div className={numberClick < 5 ? style.number : style.number_error}>
                     {numberClick}
                 </div>
             </div>
-            <div className={s.controller_counter}>
+            <div className={style.controller_counter}>
                 <button className={numberClick < 5 ?
-                    s.inc : s.dontActive}
+                    style.inc : style.dontActive}
                         onClick={() => inc()}>inc
                 </button>
                 <button className={numberClick === 0 ?
-                    s.dontActive : s.reset}
+                    style.dontActive : style.reset}
                         onClick={() => reset()}>reset
                 </button>
             </div>

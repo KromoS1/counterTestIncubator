@@ -1,0 +1,74 @@
+.counter {
+    border: 3px solid #61dafb;
+    border-radius: 20px;
+    width: 400px;
+    height: 500px;
+    margin-right: 100px;
+}
+
+.scoreboard {
+    width: 360px;
+    height: 300px;
+    margin: 20px;
+    border-radius: 20px;
+    border: 3px solid #61dafb;
+}
+
+.controller_counter {
+    border: 3px solid #61dafb;
+    display: flex;
+    border-radius: 20px;
+    width: 360px;
+    margin: 20px;
+    height: 130px;
+    justify-content: space-around;
+}
+
+.number {
+    color: #61dafb;
+    font-size: 120px;
+    padding: 70px;
+}
+
+.number_error {
+    color: red;
+    font-size: 120px;
+    padding: 70px
+}
+
+button {
+    margin-top: 15px;
+    height: 80px;
+    width: 150px;
+    border-radius: 120px;
+    background-color: #61dafb;
+    border: none;
+}
+
+.inc, .reset {
+    text-decoration: none;
+    border: none;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 45px;
+    text-align: center;
+    letter-spacing: 1px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+.dontActive {
+    background-color: #38676f;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 45px;
+    text-align: center;
+    letter-spacing: 2px;
+    color: rgb(0, 0, 0);
+}
+
+
+
+
