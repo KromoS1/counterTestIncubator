@@ -5,6 +5,23 @@
     height: 500px;
     margin-left: 100px;
 }
+.text {
+    font-size: 30px;
+}
+
+.value_input {
+    text-align: center;
+    font-size: 13px;
+    border: #61dafb 3px solid;
+    border-radius: 10px;
+}
+
+.error{
+    color:red;
+    border: red 1px solid;
+    text-align: center;
+    font-size: 13px;
+}
 
 .setting_value{
     width: 500px;

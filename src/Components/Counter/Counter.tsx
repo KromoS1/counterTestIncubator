@@ -1,37 +1,33 @@
-import React, {useState} from "react";
+import React from "react";
 import style from "./Counter.module.css";
+import {ButtonCounter} from "./ButtonCounter/ButtonCounter";
 
-export default function Counter() {
-    const [numberClick, setNumberClick] = useState<number>(0);
+interface ICounter {
+    value: number,
+    maxValue: number
+    inc: () => void
+    reset: () => void
+    isChange: boolean
+}
 
-    const inc = () => {
-        if (numberClick < 5) {
-            setNumberClick(numberClick + 1);
-        } else {
-
-        }
-    }
-    const reset = () => {
-        setNumberClick(0);
-    }
-
+export const Counter: React.FC<ICounter> = ({value, maxValue, isChange, inc, reset}) => {
     return (
         <div className={style.counter}>
             <div className={style.scoreboard}>
-                <div className={numberClick < 5 ? style.number : style.number_error}>
-                    {numberClick}
-                </div>
+                {isChange
+                    ? <div className={style.change}>Enter value and press 'set'</div>
+                    : <div className={value < maxValue ? style.number : style.number_error}>
+                        {value}
+                    </div>
+                }
             </div>
             <div className={style.controller_counter}>
-                <button className={numberClick < 5 ?
-                    style.inc : style.dontActive}
-                        onClick={() => inc()}>inc
-                </button>
-                <button className={numberClick === 0 ?
-                    style.dontActive : style.reset}
-                        onClick={() => reset()}>reset
-                </button>
+                <ButtonCounter text={'inc'} onClick={() => inc()}
+                               disabled={value === maxValue}/>
+                <ButtonCounter text={'reset'} onClick={() => reset()}
+                               disabled={value === 0}/>
             </div>
         </div>
     );
 }
+

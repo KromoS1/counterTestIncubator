@@ -1,0 +1,23 @@
+.button {
+    margin-top: 15px;
+    height: 80px;
+    width: 150px;
+    border-radius: 120px;
+    background-color: #61dafb;
+    border: none;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 45px;
+    text-align: center;
+    letter-spacing: 1px;
+    font-weight: bold;
+    box-shadow: 0 5px #6cb0c4;
+}
+
+.button:active {
+    background-color: #61dafb;
+    box-shadow: 0 3px #6cb0c4;
+    transform: translateY(2px);
+}

@@ -36,14 +36,13 @@
     padding: 70px
 }
 
-button {
-    margin-top: 15px;
-    height: 80px;
-    width: 150px;
-    border-radius: 120px;
-    background-color: #61dafb;
-    border: none;
+.change{
+    color: #61dafb;
+    margin: 125px 10px 10px 30px;
+    width: 300px;
+    font-size: 25px;
 }
+
 
 .inc, .reset {
     text-decoration: none;
