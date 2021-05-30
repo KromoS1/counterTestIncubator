@@ -2,79 +2,51 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import './App.css';
 import {Counter} from "./Components/Counter/Counter";
 import {Setting} from "./Components/Setting/Setting";
+import {useDispatch, useSelector} from "react-redux";
+import {actions, AppStateType} from "./BLL/Store";
 
 function App() {
-    const [valueCounter, setValueCounter] = useState<number>(0);
-    const [maxValueCounter, setMaxValueCounter] = useState<number>(0);
-    const [startValueSetting, setStartValueSetting] = useState(0);
-    const [maxValueSetting, setMaxValueSetting] = useState<number>(0);
-    const [isChange,setIsChange] = useState<boolean>(false);
 
-    useEffect(() => {
-        let getMaxValueCounter = localStorage.getItem("valueCounter");
-        let getMaxValueSetting = localStorage.getItem("maxValueSetting");
-        let getStartValueSetting = localStorage.getItem("startValueSetting");
-        if (getMaxValueCounter && getMaxValueSetting && getStartValueSetting) {
-            setValueCounter(JsonParser(getStartValueSetting));
-            setMaxValueCounter(JsonParser(getMaxValueSetting));
-            setStartValueSetting(JsonParser(getStartValueSetting));
-            setMaxValueSetting(JsonParser(getMaxValueSetting));
-        }
-    }, []);
+    const value = useSelector<AppStateType, number>(state => state.counter.value);
+    const startValue = useSelector<AppStateType, number>(state => state.counter.startValue);
+    const maxValue = useSelector<AppStateType, number>(state => state.counter.maxValue);
+    const dispatch = useDispatch()
 
+    const [isChange, setIsChange] = useState<boolean>(true);
 
     const inc = () => {
-        if (valueCounter < maxValueCounter) {
-            setValueCounter(valueCounter + 1);
-        }
+        dispatch(actions.incValueAC());
     };
     const reset = () => {
-        let getStartValue = localStorage.getItem("startValueSetting");
-        if (getStartValue) {
-            setValueCounter(JsonParser(getStartValue));
-        }
+        dispatch(actions.resetValue())
     };
 
     const changeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
-        setMaxValueSetting(JSON.parse(e.currentTarget.value));
+        dispatch(actions.incMaxValue(JSON.parse(e.currentTarget.value)))
         setIsChange(true);
     };
+
     const changeStartValue = (e: ChangeEvent<HTMLInputElement>) => {
-        setStartValueSetting(JSON.parse(e.currentTarget.value));
+        dispatch(actions.incStartValue(JSON.parse(e.currentTarget.value)))
         setIsChange(true);
     };
     const setOnClick = () => {
-        if (startValueSetting >= 0 && maxValueSetting > 0) {
-            setMaxValueCounter(maxValueSetting);
-            setValueCounter(startValueSetting);
-            localStorage.setItem("maxValueCounter", JsonParser(maxValueCounter));
-            localStorage.setItem("valueCounter", JsonParser(valueCounter));
-            localStorage.setItem("maxValueSetting", JsonParser(maxValueSetting));
-            localStorage.setItem("startValueSetting", JsonParser(startValueSetting));
+        if (startValue >= 0 && maxValue > 0) {
+            dispatch(actions.setValueAC())
             setIsChange(false);
         }
-    }
-
-    const enterValue = () => {
-        let getValueCounter = localStorage.getItem("valueCounter");
-        if (getValueCounter) {
-            const get = JsonParser(getValueCounter);
-            if (get !== valueCounter) {
-                return "Enter value and press 'set'";
-            }
-        }
-        return valueCounter
     }
 
     return (
         <div className="App">
             <header className="App-header">
-                <Setting startValue={startValueSetting} maxValue={maxValueSetting}
+                <Setting startValue={startValue} maxValue={maxValue}
                          set={setOnClick}
                          changeMaxValue={changeMaxValue}
                          changeStartValue={changeStartValue}
+                         isChange={isChange}
                 />
-                <Counter value={valueCounter} maxValue={maxValueCounter}
+                <Counter value={value} maxValue={maxValue} startValue={startValue}
                          inc={inc} reset={reset} isChange={isChange}/>
             </header>
         </div>
@@ -83,12 +55,3 @@ function App() {
 
 
 export default App;
-
-
-const JsonParser = (value: number | string) => {
-    if (typeof value === "number") {
-        return JSON.stringify(value);
-    } else {
-        return JSON.parse(value);
-    }
-}

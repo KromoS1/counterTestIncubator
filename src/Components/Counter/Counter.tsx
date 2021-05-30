@@ -5,12 +5,13 @@ import {ButtonCounter} from "./ButtonCounter/ButtonCounter";
 interface ICounter {
     value: number,
     maxValue: number
+    startValue:number
     inc: () => void
     reset: () => void
     isChange: boolean
 }
 
-export const Counter: React.FC<ICounter> = ({value, maxValue, isChange, inc, reset}) => {
+export const Counter: React.FC<ICounter> = ({value, maxValue, isChange, inc, reset,startValue}) => {
     return (
         <div className={style.counter}>
             <div className={style.scoreboard}>
@@ -25,7 +26,7 @@ export const Counter: React.FC<ICounter> = ({value, maxValue, isChange, inc, res
                 <ButtonCounter text={'inc'} onClick={() => inc()}
                                disabled={value === maxValue}/>
                 <ButtonCounter text={'reset'} onClick={() => reset()}
-                               disabled={value === 0}/>
+                               disabled={value === startValue}/>
             </div>
         </div>
     );
