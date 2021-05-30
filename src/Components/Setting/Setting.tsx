@@ -1,39 +1,40 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import style from "./Setting.module.css"
 import {ButtonCounter} from "../Counter/ButtonCounter/ButtonCounter";
+import {SettingContainerType} from "./SettingContainer";
 
-interface ISetting {
-    startValue: number,
-    maxValue: number,
-    isChange: boolean
-    set: () => void,
-    changeMaxValue: (e: ChangeEvent<HTMLInputElement>) => void
-    changeStartValue: (e: ChangeEvent<HTMLInputElement>) => void
-}
 
-export const Setting: React.FC<ISetting> = ({
-                                                startValue, maxValue, set, changeMaxValue, changeStartValue, isChange
-                                            }) => {
+export const Setting: React.FC<SettingContainerType> = (props) => {
+    const conditionDisable = () => {
+        if (props.maxValue <= props.startValue){
+            return true
+        }else if(props.startValue < 0 || props.maxValue < 0){
+            return true
+        }else{
+            return !props.isChange
+        }
+    }
+    const resultCondition = conditionDisable();
     return (
         <div className={style.setting}>
             <div className={style.setting_value}>
                 <div className={style.value}>
                     <text className={style.text}>max value:</text>
-                    <input className={maxValue < 0 ? style.error : style.value_input}
+                    <input className={props.maxValue < 0 ? style.error : style.value_input}
                            type={"number"}
-                           value={maxValue}
-                           onChange={changeMaxValue}/>
+                           value={props.maxValue}
+                           onChange={props.changeMaxValue}/>
                 </div>
                 <div className={style.value}>
                     <text className={style.text}>start value:</text>
-                    <input className={startValue < 0 ? style.error : style.value_input}
+                    <input className={props.startValue < 0 ? style.error : style.value_input}
                            type={"number"}
-                           value={startValue}
-                           onChange={changeStartValue}/>
+                           value={props.startValue}
+                           onChange={props.changeStartValue}/>
                 </div>
             </div>
             <div className={style.boar_save_btn}>
-                <ButtonCounter text={"set"} onClick={set} disabled={!isChange}/>
+                <ButtonCounter text={"set"} onClick={props.set} disabled={resultCondition}/>
             </div>
         </div>
     )
